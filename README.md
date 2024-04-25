@@ -17,3 +17,5 @@ install folium
 ```sh
 $ pip install folium
 ```
+
+open index.html to view said map. run `main.py` to regenerate the map.
