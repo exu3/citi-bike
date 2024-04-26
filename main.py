@@ -31,6 +31,13 @@ def get_hour(datetime_str):
 m = folium.Map(location=(40.730610, -73.935242),
                tiles="cartodb positron", zoom_start=12)
 
+m2 = folium.Map(location=(40.730610, -73.935242),
+                tiles="cartodb positron", zoom_start=12)
+
+tod = folium.FeatureGroup("time of day")
+# LayerControl
+# Maybe just make a new map for each THING and toggle between pages???
+
 start_coordinates = []
 end_coordinates = []
 bike_type = []
@@ -54,14 +61,14 @@ end_coordinates.pop(0)
 
 
 # associate colors to bike type
-line_colors = []
+btlc = []  # Bike Type Line Color
 for b in bike_type:
     if b == "classic_bike":
-        line_colors.append('#00A9B4')  # light blue
+        btlc.append('#00A9B4')  # light blue
     elif b == "electric_bike":
-        line_colors.append('orange')
+        btlc.append('orange')
     else:
-        line_colors.append('red')
+        btlc.append('red')
 
 start_hour = []
 for t in started_at:
@@ -90,7 +97,7 @@ for h in start_hour:
 
 # generate polylines
 
-for i in range(len(ride_id)-10):
+for i in range(10000):
     # for i in range(len(start_coordinates)):
     try:
         if end_coordinates[i]:
@@ -101,6 +108,13 @@ for i in range(len(ride_id)-10):
                 color=lcft[i],
                 weight=1,
             ).add_to(m)
+
+            folium.PolyLine(
+                locations=polyline,
+                color=btlc[i],
+                weight=1,
+            ).add_to(m2)
+            # print("new
             # print("new line added to the map")
         else:
             # do nothing
@@ -112,3 +126,4 @@ for i in range(len(ride_id)-10):
 
 
 m.save("index.html")
+m2.save("bike_type.html")
