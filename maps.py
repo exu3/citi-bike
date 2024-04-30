@@ -2,10 +2,6 @@
 main.py
 """
 
-# todo:
-# - create FeatureGroups for each layer
-# - legend to toggle on/off layers
-
 import folium
 import csv
 
@@ -34,10 +30,6 @@ m = folium.Map(location=(40.730610, -73.935242),
 m2 = folium.Map(location=(40.730610, -73.935242),
                 tiles="cartodb positron", zoom_start=12)
 
-tod = folium.FeatureGroup("time of day")
-# LayerControl
-# Maybe just make a new map for each THING and toggle between pages???
-
 start_coordinates = []
 end_coordinates = []
 bike_type = []
@@ -58,7 +50,6 @@ with open("./2023-citibike-tripdata/1_January/202301-citibike-tripdata_1.csv") a
 
 start_coordinates.pop(0)
 end_coordinates.pop(0)
-
 
 # associate colors to bike type
 btlc = []  # Bike Type Line Color
@@ -98,7 +89,7 @@ for h in start_hour:
 # generate polylines
 
 for i in range(10000):
-    # for i in range(len(start_coordinates)):
+    # for i in range(len(start_coordinates)): # doesn't work too much data
     try:
         if end_coordinates[i]:
             polyline = [[float(start_coordinates[i][0]), float(start_coordinates[i][1])], [
@@ -125,5 +116,5 @@ for i in range(10000):
             f"bad data at line {i}, id: {ride_id[i]}, start x: {start_coordinates[i][0]} start y: {start_coordinates[i][1]} end x: {end_coordinates[i][0]} end y: {end_coordinates[i][1]}")
 
 
-m.save("index.html")
-m2.save("bike_type.html")
+m.save("./static/lcft.html")
+m2.save("./static/bike_type.html")
