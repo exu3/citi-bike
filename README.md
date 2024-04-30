@@ -24,6 +24,10 @@ open [http://127.0.0.1:5000](http://127.0.0.1:5000) to view stuff!
 
 ---
 
+# TODO
+
+- refactor maps.py to use dictionary
+
 ## The project
 
 This project is a visualization of CitiBike data from January 2023 developed by @exu3 and @eburlinson for CS1210 final project. link deployment and explain project further with screenshots.
