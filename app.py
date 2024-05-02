@@ -28,12 +28,18 @@ def bike_type():
 
 @app.route("/histogram")
 def histogram():
-    return render_template("map_legend.html", map="/static/histogram.html", desc="histogram")
+    return render_template("map_legend.html",
+                           map="/static/histogram.html",
+                           desc="This histogram shows the start and end station of trips that took place during the month. " +
+                           "Hovering over a point on the plot shows the number of trips that started and ended at the corresponding stations.")
 
 
 @app.route("/scatter")
 def scatter():
-    return render_template("map_legend.html", map="/static/scatter.html", desc="scatteeeerrrrrrrr")
+    return render_template("map_legend.html",
+                           map="/static/scatter.html",
+                           desc="The scatter plot shows the start and end stations of trips that took place during the month. " +
+                           "The size of the circle is determined by the number of trips that started and ended at the specific stations.")
 
 
 if __name__ == '__main__':

@@ -49,6 +49,13 @@
       .desc-container {
         margin: 0 10vw;
       }
+      .footer {
+        display: flex;
+        max-width: 800px;
+        margin: 0 auto;
+        justify-content: center;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -57,21 +64,37 @@
       <div class="desc-container">
         <p>
           This project visualizes Citi Bike data from
-          <span>September 2023</span>. It was built with Python, using plotly
-          for statistical analysis and the folium for geospatial maps. Visualize
-          the data using the options below.
+          <span>March 2024</span>. It was built with Python, using
+          <a href="https://github.com/plotly/plotly.py" target="_blank"
+            >plotly.py</a
+          >
+          for statistical analysis and the
+          <a
+            href="https://github.com/python-visualization/folium"
+            target="_blank"
+            >folium</a
+          >
+          for maps. Visualize the data using the options below.
         </p>
       </div>
       <ul class="nav-list">
         <li><a href="/bike_type">map by bike type</a></li>
         <li><a href="/lcft">map by time of day</a></li>
-        <li><a href="/histogram">2d histogram</a></li>
-        <li><a href="/scatter">scatter plot</a></li>
+        <li><a href="/histogram">2d histogram of stations</a></li>
+        <li><a href="/scatter">scatter plot of stations</a></li>
       </ul>
     </div>
     <div class="desc-container">
       <p>{{ desc }}</p>
     </div>
     <iframe src="{{ map }}"></iframe>
+    <footer class="footer">
+      <p>
+        This project was developed by <a href="exu3">@exu3</a> and
+        <a href="https://github.com/eburlinson">@eburlinson</a> in Spring 2024
+        as a final project for CS 1210 at UVM. The code is
+        <a href="https://github.com/exu3/citi-bike">open source</a>.
+      </p>
+    </footer>
   </body>
 </html>

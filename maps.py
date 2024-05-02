@@ -36,7 +36,7 @@ bike_type = []
 ride_id = []
 started_at = []
 
-with open("./data/202309-citibike-tripdata_1.csv") as d:
+with open("./data/JC-202403-citibike-tripdata.csv") as d:
     reader = csv.reader(d)
     for row in reader:
         start_lat, start_lng = (row[8], row[9])

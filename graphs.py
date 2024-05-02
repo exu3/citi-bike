@@ -9,6 +9,7 @@ As user input will not be a part of generating the graphs, no input validation w
 """
 import csv
 import plotly.graph_objects as go
+import plotly.express as px
 
 
 # this should be the first function used when plotting two variables.
@@ -38,14 +39,17 @@ def dict_counts(filename, par_1, par_2, lst_1, lst_2, dct, column_names_):
 
 # this function takes two variables and uses the counts of each combination to determine size and color.
 def scatter(x_lst, y_lst, count_lst, par_1, par_2):
-    fig = go.Figure(data=[go.Scatter(
-        x=x_lst, y=y_lst,
-        mode='markers',
-        marker=dict(size=count_lst, color=count_lst)
-    )])
+    fig = px.scatter(x=x_lst, y=y_lst)
+    fig.update_traces(marker_size=cts)
+    # this one looks cool but crashes the browser
+    # fig = go.Figure(data=[go.Scatter(
+    #     x=x_lst, y=y_lst,
+    #     mode='markers',
+    #     marker=dict(size=count_lst, color=count_lst)
+    # )])
     fig.update_layout(title=f'Scatter Plot of {par_1} and {par_2}')
-    # fig.write_html("./static/scatter.html")
-    return fig.show()
+    fig.write_html("./static/scatter.html")
+    return fig
 
 
 # this function takes two variables and uses the counts for the color, same as the above.
@@ -92,7 +96,7 @@ if __name__ == '__main__':
     rnb = 'Rainbow'
 
     # scatter plot
-    dict_counts('./data/202309-citibike-tripdata_1.csv',
+    dict_counts('./data/JC-202403-citibike-tripdata.csv',
                 'start_station_name',
                 'end_station_name', start_station, end_station, d,
                 column_names)
@@ -105,13 +109,13 @@ if __name__ == '__main__':
 
     # 2D histogram
     d1 = {}
-    dict_counts('./data/202309-citibike-tripdata_1.csv',
-                rt,
+    dict_counts('./data/JC-202403-citibike-tripdata.csv',
                 ssn,
-                rideable_type, start_station, d1,
+                esn,
+                start_station, end_station, d1,
                 column_names)
 
     cts1 = []
     for f in d1.values():
         cts1.append(f)
-    twod_histogram(rideable_type, start_station, cts1, rt, ssn)
+    twod_histogram(start_station, end_station, cts1, esn, ssn)
