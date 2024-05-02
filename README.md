@@ -15,12 +15,18 @@ $ . ./citibike/bin/activate
 install dependencies
 
 ```sh
-$ pip install -r requirements.txt
+(citibike) $ pip install -r requirements.txt
 ```
 
-run `maps.py` to generate/update maps. the maps will be saved to the `static` directory. start the development server using `$ flask --app wahoo run`
+Run the `maps.py` file to generate/update maps, and `graphs.py` to generate/update statistical grpahs. The output will be saved to the `static` directory.
 
-open [http://127.0.0.1:5000](http://127.0.0.1:5000) to view stuff!
+Start the dev server with:
+
+```sh
+(citibike) $ flask run
+```
+
+Then open [http://127.0.0.1:5000](http://127.0.0.1:5000) to view stuff!
 
 ---
 

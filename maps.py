@@ -36,7 +36,7 @@ bike_type = []
 ride_id = []
 started_at = []
 
-with open("./2023-citibike-tripdata/1_January/202301-citibike-tripdata_1.csv") as d:
+with open("./data/202309-citibike-tripdata_1.csv") as d:
     reader = csv.reader(d)
     for row in reader:
         start_lat, start_lng = (row[8], row[9])
@@ -89,7 +89,7 @@ for h in start_hour:
 # generate polylines
 
 for i in range(10000):
-    # for i in range(len(start_coordinates)): # doesn't work too much data
+    # for i in range(len(start_coordinates)): # doesn't work - too much data
     try:
         if end_coordinates[i]:
             polyline = [[float(start_coordinates[i][0]), float(start_coordinates[i][1])], [
@@ -105,7 +105,6 @@ for i in range(10000):
                 color=btlc[i],
                 weight=1,
             ).add_to(m2)
-            # print("new
             # print("new line added to the map")
         else:
             # do nothing

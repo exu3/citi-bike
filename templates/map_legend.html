@@ -3,21 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>map wahoo</title>
+    <title>Citi Bike Visualization</title>
     <style>
+      body {
+        background-color: lightgrey;
+        margin: 0;
+        font-family: sans-serif;
+      }
+
       iframe {
         width: 100vw;
         height: 80vh;
+      }
+
+      h1 {
+        margin-top: 0px;
+        margin-bottom: 50px;
+        text-align: center;
+        font-size: 3rem;
+        letter-spacing: 0.15rem;
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow: -4px 4px #015940, -8px 8px #a00035, -12px 12px #7e57c2,
+          -16px 16px #2196f3, -20px 20px #26c6da, -24px 24px #43a047,
+          -28px 28px #eeff41, -32px 32px #f9a825, -36px 36px #ff5722;
+      }
+
+      iframe {
+        overflow-x: hidden;
+      }
+
+      .nav-list {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        justify-content: center;
+      }
+
+      .nav-list li {
+        font-size: large;
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+
+      .desc-container {
+        margin: 0 10vw;
       }
     </style>
   </head>
   <body>
     <div>
-      <p>Legend</p>
-      <ul>
-        <li><a href="/bike_type">bike type</a></li>
-        <li><a href="/lfct">time of day</a></li>
+      <h1>Look at all the colorful lines.</h1>
+      <div class="desc-container">
+        <p>
+          This project visualizes Citi Bike data from
+          <span>September 2023</span>. It was built with Python, using plotly
+          for statistical analysis and the folium for geospatial maps. Visualize
+          the data using the options below.
+        </p>
+      </div>
+      <ul class="nav-list">
+        <li><a href="/bike_type">map by bike type</a></li>
+        <li><a href="/lcft">map by time of day</a></li>
+        <li><a href="/histogram">2d histogram</a></li>
+        <li><a href="/scatter">scatter plot</a></li>
       </ul>
+    </div>
+    <div class="desc-container">
+      <p>{{ desc }}</p>
     </div>
     <iframe src="{{ map }}"></iframe>
   </body>
