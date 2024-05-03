@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template('map_legend.html', map="/static/bike_type.html", desc="wheeeee")
+    return render_template('map_legend.html', map="/static/bike_type.html", desc="")
 
 
 @app.route("/lcft")
