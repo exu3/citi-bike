@@ -35,3 +35,7 @@ Start the dev server.
 ```
 
 Then, open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
+
+##### appendix: division of labor, project difficulty
+
+Elijah worked on the graphs, and Ella worked on the maps and web interface. The estimate of project difficulty is "moderate." We used Python language features covered in the course and libraries that were not covered in the course but are well-documented online. We encountered difficulties working with large datasets and ended up just going with a specific month because it was more manageable. The effort spent on this project is roughly equivalent to that of four or five homework assignments.

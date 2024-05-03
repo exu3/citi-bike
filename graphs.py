@@ -1,11 +1,6 @@
 """
-5/1/2024
-Elijah Burlinson
-
-This program takes a csv file and extracts the variables based on a string, an empty list, and the filename.
-The csv file must be saved in the same directory as this program to work.
-The most common source of error is mispelled file or variable names when using dict_counts.
-As user input will not be a part of generating the graphs, no input validation was included in this script.
+graphs.py
+author: Elijah Burlinson
 """
 import csv
 import plotly.graph_objects as go

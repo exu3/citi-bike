@@ -1,5 +1,5 @@
 """
-main.py
+map.py
 """
 
 import folium
@@ -23,97 +23,95 @@ def get_hour(datetime_str):
     return dt_object.hour
 
 
-# specify location
-m = folium.Map(location=(40.730610, -73.935242),
-               tiles="cartodb positron", zoom_start=12)
+if __name__ == "__main__":
+    # specify location
+    m = folium.Map(location=(40.730610, -73.935242),
+                   tiles="cartodb positron", zoom_start=12)
 
-m2 = folium.Map(location=(40.730610, -73.935242),
-                tiles="cartodb positron", zoom_start=12)
+    m2 = folium.Map(location=(40.730610, -73.935242),
+                    tiles="cartodb positron", zoom_start=12)
 
-start_coordinates = []
-end_coordinates = []
-bike_type = []
-ride_id = []
-started_at = []
+    start_coordinates = []
+    end_coordinates = []
+    bike_type = []
+    ride_id = []
+    started_at = []
 
-with open("./data/JC-202403-citibike-tripdata.csv") as d:
-    reader = csv.reader(d)
-    for row in reader:
-        start_lat, start_lng = (row[8], row[9])
-        end_lat, end_lng = (row[10], row[11])
-        start_coordinates.append((start_lat, start_lng))
-        end_coordinates.append((end_lat, end_lng))
-        bike_type.append(row[1])
-        ride_id.append(row[0])
-        started_at.append(row[2])
-        # print(coorsdinates)
+    with open("./data/JC-202403-citibike-tripdata.csv") as d:
+        reader = csv.reader(d)
+        for row in reader:
+            start_lat, start_lng = (row[8], row[9])
+            end_lat, end_lng = (row[10], row[11])
+            start_coordinates.append((start_lat, start_lng))
+            end_coordinates.append((end_lat, end_lng))
+            bike_type.append(row[1])
+            ride_id.append(row[0])
+            started_at.append(row[2])
+            # print(coorsdinates)
 
-start_coordinates.pop(0)
-end_coordinates.pop(0)
+    start_coordinates.pop(0)
+    end_coordinates.pop(0)
 
-# associate colors to bike type
-btlc = []  # Bike Type Line Color
-for b in bike_type:
-    if b == "classic_bike":
-        btlc.append('#00A9B4')  # light blue
-    elif b == "electric_bike":
-        btlc.append('orange')
-    else:
-        btlc.append('red')
-
-start_hour = []
-for t in started_at:
-    try:
-        hour = get_hour(t)
-        start_hour.append(hour)
-    except ValueError:
-        start_hour.append(999)
-
-
-lcft = []  # LineColorsForTime :)
-for h in start_hour:
-    if 0 < h < 3:
-        lcft.append(TIME_COLORS["twilight"])
-    elif 4 < h < 7:
-        lcft.append(TIME_COLORS["sunrise"])
-    elif 8 < h < 11:
-        lcft.append(TIME_COLORS["morning"])
-    elif 12 < h < 15:
-        lcft.append(TIME_COLORS["afternoon"])
-    elif 16 < h < 19:
-        lcft.append(TIME_COLORS["evening"])
-    elif 20 < h < 23:
-        lcft.append(TIME_COLORS["night"])
-
-
-# generate polylines
-
-for i in range(10000):
-    # for i in range(len(start_coordinates)): # doesn't work - too much data
-    try:
-        if end_coordinates[i]:
-            polyline = [[float(start_coordinates[i][0]), float(start_coordinates[i][1])], [
-                float(end_coordinates[i][0]), float(end_coordinates[i][1])]]
-            folium.PolyLine(
-                locations=polyline,
-                color=lcft[i],
-                weight=1,
-            ).add_to(m)
-
-            folium.PolyLine(
-                locations=polyline,
-                color=btlc[i],
-                weight=1,
-            ).add_to(m2)
-            # print("new line added to the map")
+    # associate colors to bike type
+    btlc = []  # Bike Type Line Color
+    for b in bike_type:
+        if b == "classic_bike":
+            btlc.append('#00A9B4')  # light blue
+        elif b == "electric_bike":
+            btlc.append('orange')
         else:
-            # do nothing
-            # some rows don't have end coords for some reason
-            print("ride never finished")
-    except ValueError:
-        print(
-            f"bad data at line {i}, id: {ride_id[i]}, start x: {start_coordinates[i][0]} start y: {start_coordinates[i][1]} end x: {end_coordinates[i][0]} end y: {end_coordinates[i][1]}")
+            btlc.append('red')
 
+    start_hour = []
+    for t in started_at:
+        try:
+            hour = get_hour(t)
+            start_hour.append(hour)
+        except ValueError:
+            start_hour.append(999)
 
-m.save("./static/lcft.html")
-m2.save("./static/bike_type.html")
+    lcft = []  # LineColorsForTime :)
+    for h in start_hour:
+        if 0 < h < 3:
+            lcft.append(TIME_COLORS["twilight"])
+        elif 4 < h < 7:
+            lcft.append(TIME_COLORS["sunrise"])
+        elif 8 < h < 11:
+            lcft.append(TIME_COLORS["morning"])
+        elif 12 < h < 15:
+            lcft.append(TIME_COLORS["afternoon"])
+        elif 16 < h < 19:
+            lcft.append(TIME_COLORS["evening"])
+        elif 20 < h < 23:
+            lcft.append(TIME_COLORS["night"])
+
+    # generate polylines
+
+    for i in range(10000):
+        # for i in range(len(start_coordinates)): # doesn't work - too much data
+        try:
+            if end_coordinates[i]:
+                polyline = [[float(start_coordinates[i][0]), float(start_coordinates[i][1])], [
+                    float(end_coordinates[i][0]), float(end_coordinates[i][1])]]
+                folium.PolyLine(
+                    locations=polyline,
+                    color=lcft[i],
+                    weight=1,
+                ).add_to(m)
+
+                folium.PolyLine(
+                    locations=polyline,
+                    color=btlc[i],
+                    weight=1,
+                ).add_to(m2)
+                # print("new line added to the map")
+            else:
+                # do nothing
+                # some rows don't have end coords for some reason
+                print("ride never finished")
+        except ValueError:
+            print(
+                f"bad data at line {i}, id: {ride_id[i]}, start x: {start_coordinates[i][0]} start y: {start_coordinates[i][1]} end x: {end_coordinates[i][0]} end y: {end_coordinates[i][1]}")
+
+    m.save("./static/lcft.html")
+    m2.save("./static/bike_type.html")
